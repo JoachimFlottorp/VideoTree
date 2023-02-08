@@ -27,11 +27,11 @@ def read_file(path: str) -> Optional[File]:
 def read_files_recurse(path: str, time_filter: int) -> Folder:
     """
     Reads through every folder recurseively in the given path.
-    
+
     Args:
         path (str): Full path to the directory
         time_filter (int): Minimum time in minutes to be considered a match
-        
+
     Returns:
         Folder: Folder object containing every video file and folder in the path and its subfolders
     """
@@ -46,7 +46,7 @@ def read_files_recurse(path: str, time_filter: int) -> Folder:
             try:
                 file = read_file(item_path)
                 if file is None:
-                    continue # Ignore files that are not videos
+                    continue  # Ignore files that are not videos
 
                 if file.time and file.time >= time_filter:
                     files.append(file)
@@ -58,22 +58,30 @@ def read_files_recurse(path: str, time_filter: int) -> Folder:
 
     return Folder(os.path.basename(path), path, folders, files)
 
+
 def remove_empty_folders(folder: Folder) -> None:
     """
     Removes empty folders from a Folder object.
-    
+
     Args:
         folder (Folder): Folder object to remove empty folders from
     """
     for child in folder.children:
         remove_empty_folders(child)
 
-    folder.children = [child for child in folder.children if len(child.files) > 0 or len(child.children) > 0]
-    
+    folder.children = [
+        child
+        for child in folder.children
+        if len(child.files) > 0 or len(child.children) > 0
+    ]
+
     return folder
-    
-def videotree(path: str,  output_fn: Callable[[Folder, int, Optional[int]], str], time_filter: int = 20) -> str:
+
+
+def videotree(
+    path: str, output_fn: Callable[[Folder], str], time_filter: int = 20
+) -> str:
     rec_files = read_files_recurse(path, time_filter)
     remove_empty_folders(rec_files)
-    
-    return output_fn(rec_files, time_filter=time_filter)
+
+    return output_fn(rec_files)

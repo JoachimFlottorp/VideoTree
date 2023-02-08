@@ -76,9 +76,9 @@ def read_time_from_file(path: str) -> Optional[int]:
     The expected return is an int, however this is only if the file is a video. Images, text files etc. will return None.
     """
     ffprobe_stdout, ffprobe_stderr = run_ffprobe(path)
-    if ffprobe_stderr != b"": # TODO: Better error handling?
-    #     if FFPROBE_INVALID_INPUT_ERROR in ffprobe_stderr:
-    #         return
+    if ffprobe_stderr != b"":  # TODO: Better error handling?
+        #     if FFPROBE_INVALID_INPUT_ERROR in ffprobe_stderr:
+        #         return
         return
 
     json = parse_raw_as(FFProbeOutput, ffprobe_stdout)

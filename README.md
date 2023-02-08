@@ -12,6 +12,11 @@ git clone https://github.com/JoachimFlottorp/VideoTree.git
 cd VideoTree
 ```
 
+###### Pre-Requirements
+
+- Python 3.10 or higher
+- [FFprobe](https://ffmpeg.org/) in your PATH
+
 ###### Windows
 
 ```ps1

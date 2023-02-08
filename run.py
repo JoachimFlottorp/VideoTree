@@ -11,8 +11,9 @@ abspath = path.abspath
 
 output_format_list = {
     "text": structure_output_as_text,
-    "json": structure_output_as_json
+    "json": structure_output_as_json,
 }
+
 
 def run() -> None:
     args = argparse.ArgumentParser()
@@ -22,8 +23,11 @@ def run() -> None:
         "--filter",
         type=int,
         help="Filter videos by length equal or greater than the given value in minutes",
+        default=10,
     )
-    args.add_argument("-j", "--json", action="store_true", help="Output as json")
+    args.add_argument(
+        "-j", "--json", action="store_true", help="Output as json", default=False
+    )
 
     path = abspath(args.parse_args().path)
     f = args.parse_args().filter or 10
@@ -31,10 +35,10 @@ def run() -> None:
 
     if not is_json:
         print(f"VideoTree is running on {path} with filter {f}")
-        
+
     try:
         fn = output_format_list["json" if is_json else "text"]
-        
+
         out = videotree(path, fn, time_filter=f)
 
         if out == "" and not is_json:

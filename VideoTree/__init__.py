@@ -8,7 +8,7 @@ class File:
     path: str
     time: Optional[int]
     extension: str
-    
+
 
 @dataclass
 class Folder:
@@ -16,5 +16,6 @@ class Folder:
     path: str
     children: List["Folder"]
     files: List["File"]
+
 
 from .VideoTree import videotree
