@@ -1,7 +1,6 @@
 from typing import Optional, List
-from . import File
 from subprocess import run, PIPE
-from pydantic import BaseModel, parse_raw_as
+import json
 
 # FFPROBE_INVALID_INPUT_ERROR = b"Invalid data found when processing input"
 FFPROBE_ARGUMENTS = [
@@ -17,46 +16,34 @@ FFPROBE_ARGUMENTS = [
 ]
 
 
-class FFProbeStream(BaseModel):
-    # The duration of the stream in seconds, can be None if the stream is a still image.
-    duration: str | None
-    # The codec type of the stream. This is either video or audio.
-    codec_type: str
-
-
-class FFProbeFormat(BaseModel):
-    duration: Optional[str]
-
-
-class FFProbeOutput(BaseModel):
-    streams: List[FFProbeStream]
-    format: FFProbeFormat
-
-
-def resolve_duration(output: FFProbeOutput) -> Optional[int]:
+def resolve_duration(output: dict) -> Optional[int]:
     def calc_duration(duration: str) -> int:
         return int(float(duration) / 60)
 
     found_vid = False
 
-    for stream in output.streams:
-        if stream.codec_type != "video":
+    for stream in output["streams"]:
+        codec = stream.get("codec_type", "")
+        duration = stream.get("duration")
+        if codec != "video":
             continue
 
         found_vid = True
 
-        if stream.duration is None:
+        if duration is None:
             continue
 
-        return calc_duration(stream.duration)
+        return calc_duration(duration)
 
     if not found_vid:
         return None
 
-    if output.format is None or output.format.duration is None:
+    format = output.get("format", {})
+    duration = format.get("duration")
+    if not format or duration is None:
         return None
 
-    return calc_duration(output.format.duration)
+    return calc_duration(output["format"]["duration"])
 
 
 def run_ffprobe(path: str) -> tuple[str, str]:
@@ -81,5 +68,5 @@ def read_time_from_file(path: str) -> Optional[int]:
         #         return
         return
 
-    json = parse_raw_as(FFProbeOutput, ffprobe_stdout)
-    return resolve_duration(json)
+    json_data = json.loads(ffprobe_stdout)
+    return resolve_duration(json_data)

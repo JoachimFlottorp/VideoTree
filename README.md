@@ -17,18 +17,6 @@ cd VideoTree
 - Python 3.10 or higher
 - [FFprobe](https://ffmpeg.org/) in your PATH
 
-###### Windows
-
-```ps1
-py -m pip install -r requirements.txt
-```
-
-###### Linux
-
-```bash
-python3 -m pip install -r requirements.txt
-```
-
 #### Help Page
 
 ```bash

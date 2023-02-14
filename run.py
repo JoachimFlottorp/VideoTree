@@ -14,6 +14,7 @@ output_format_list = {
     "json": structure_output_as_json,
 }
 
+
 def run() -> None:
     args = argparse.ArgumentParser()
     args.add_argument("path", type=str, help="Path to the directory")
