@@ -26,4 +26,4 @@ def structure_output_as_json(folder: Folder) -> str:
 
         return out
 
-    return json.dumps(do(folder))
+    return json.dumps(do(folder), ensure_ascii=False)
