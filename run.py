@@ -34,7 +34,7 @@ def run() -> None:
     is_json = args.parse_args().json
 
     if not is_json:
-        print(f"VideoTree is running on {path} with filter {f}")
+        print(f"VideoTree is running on {path} with filter {f}", file=sys.stderr)
 
     try:
         fn = output_format_list["json" if is_json else "text"]
