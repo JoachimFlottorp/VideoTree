@@ -56,14 +56,13 @@ python run.py ./testdata/Movie/ -f 1
 ---- AlienPls.avi Found match: ✅ 3 minutes
   mkv
  ---- 1
--------- AlienPls.mkv Found match: ✅ 3 minutes
+-------- エイリアン.mkv Found match: ✅ 3 minutes
  ---- 2
--------- AlienPls.mkv Found match: ✅ 3 minutes
+-------- كائن فضائي.mkv Found match: ✅ 3 minutes
   mov
 ---- AlienPls.mov Found match: ✅ 3 minutes
   mp4
----- AlienPls.mp4 Found match: ✅ 3 minutes
-
+---- 👽 🫱🏿‍🫲🏻.mp4 Found match: ✅ 3 minutes
 ```
 
 ###### JSON
@@ -95,7 +94,7 @@ python3 run.py testdata/Movie -f 1 -j | jq
         "children": [
           {
             "type": "file",
-            "name": "AlienPls.mkv",
+            "name": "エイリアン.mkv",
             "duration": 3
           }
         ]
@@ -106,7 +105,7 @@ python3 run.py testdata/Movie -f 1 -j | jq
         "children": [
           {
             "type": "file",
-            "name": "AlienPls.mkv",
+            "name": "كائن فضائي.mkv",
             "duration": 3
           }
         ]
@@ -130,7 +129,7 @@ python3 run.py testdata/Movie -f 1 -j | jq
     "children": [
       {
         "type": "file",
-        "name": "AlienPls.mp4",
+        "name": "👽🤝🏿.mp4",
         "duration": 3
       }
     ]
