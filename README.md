@@ -62,7 +62,7 @@ python run.py ./testdata/Movie/ -f 1
   mov
 ---- AlienPls.mov Found match: ✅ 3 minutes
   mp4
----- 👽 🫱🏿‍🫲🏻.mp4 Found match: ✅ 3 minutes
+---- 👽.mp4 Found match: ✅ 3 minutes
 ```
 
 ###### JSON
@@ -129,7 +129,7 @@ python3 run.py testdata/Movie -f 1 -j | jq
     "children": [
       {
         "type": "file",
-        "name": "👽🤝🏿.mp4",
+        "name": "👽.mp4",
         "duration": 3
       }
     ]
